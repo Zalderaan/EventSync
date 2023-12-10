@@ -22,11 +22,28 @@ if(isset($_SESSION["userID"])) {
         foreach ($userTasks as $task) {
             echo '<li>';
             echo '  <div class="card">';
-            echo '    <div class="card-body">';
-            echo '      <div class="card-text">';
-            echo '        <input type="checkbox"> ' . $task["task_name"];
+            echo '    <div class="card-body task-container">';
+            echo '      <div class="task-style" title="' . $task["task_name"] . '">';
+            echo          $task["task_name"];
             echo '      </div>';
-            echo '    </div>';
+            echo '';
+            echo '      <div class="task-buttons">';
+            echo '        <!-- editTask trigger modal -->';
+            echo '        <div class="button-custom">';
+            echo '          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editTask">';
+            echo '            <i class="material-icons" style="font-size: 16px;">edit</i>';
+            echo '          </button>';
+            echo '        </div>';
+            echo '';
+            echo '        <!-- deleteTask trigger modal -->';
+            echo '        <div class="button-custom">';
+            echo '          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteTask">';
+            echo '            <i class="material-icons" style="font-size: 16px;">delete</i>';
+            echo '          </button>';
+            echo '        </div>';
+            echo '';
+            echo '      </div>';
+            echo '';
             echo '  </div>';
             echo '</li>';
         }

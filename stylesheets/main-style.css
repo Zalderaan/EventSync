@@ -72,6 +72,39 @@ body {
     border: 0rem;
 }
 
+.task-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-style {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    position: relative;
+    top: 0.2rem;
+}
+
+.task-buttons {
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.task-buttons .button-custom button{
+    color: rgb(28, 10, 100);
+    background-color: transparent;
+    border: 0rem;
+}
+
+.task-buttons .button-custom button:hover {
+    color: rgb(54, 24, 173);
+    background-color: transparent;
+    border: 0rem;
+}
+
 
 .left-content {
     text-align: left;

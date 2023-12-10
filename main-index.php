@@ -87,21 +87,7 @@
                   <i class="material-icons">add</i>
                 </button>
               </div>
-        
-              <!-- editTask trigger modal -->
-              <div class="button-custom">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editTask">
-                  <i class="material-icons">edit</i>
-                </button>
-              </div>
-
-              <!-- deleteTask trigger modal -->
-              <div class="button-custom">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteTask">
-                  <i class="material-icons">delete</i>
-                </button>
-              </div>
-              
+                      
               <!-- addTask Modal -->
               <div class="modal fade" id="addTask" tabindex="-1" aria-labelledby="addTaskLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -116,8 +102,8 @@
                       <div class="create-event modal-body">
                           <div class="row justify-content-center">
                             <div class="col-12">
-                              <label for="taskName">Task Name</label>
-                              <input type="text" class="form-control" id="taskName" name="taskName"><br>
+                              <label for="create_taskName">Task Name</label>
+                              <input type="text" class="form-control" id="create_taskName" name="create_taskName"><br>
                             </div>
                           </div>
                         </div>
@@ -144,16 +130,17 @@
                       <div class="create-event modal-body">
                         <div class="row justify-content-center">
                           <div class="col-12">
-                            <label for="taskName">Task Name</label>
-                            <input type="text" class="form-control" id="taskName" name="taskName"><br>
+                            <label for="edit_taskName">Task Name</label>
+                            <input type="text" class="form-control" id="edit_taskName" name="edit_taskName"><br>
                           </div>
                         </div>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary" id="edit_task" name="edit_task">Save changes</button>
                       </div>
                     </form>
+                    
                   </div>
                 </div>
               </div>
@@ -163,7 +150,7 @@
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="deleteTaskLabel">Delete the ff. tasks?</h1>
+                      <h1 class="modal-title fs-5" id="deleteTaskLabel">Delete tasks?</h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -407,32 +394,6 @@
         </div>
       </div>  
     </div>
-
-    <!--
-    <script>
-      $(document).ready(function() {
-          // Attach an event listener to the date picker input
-          $('#current_date').on('change', function() {
-              // Get the selected date
-              var selectedDate = $(this).val();
-
-              // Send an AJAX request to update the events based on the selected date
-              $.ajax({
-                  url: 'backend/classes/eventDisplay-classes.php', // Replace with the actual path to your update script
-                  type: 'POST',
-                  data: { selectedDate: selectedDate },
-                  success: function(response) {
-                      // Update the events container with the new events
-                      $('#events-container').html(response);
-                  },
-                  error: function() {
-                      console.log('Error updating events');
-                  }
-              });
-          });
-      });
-      </script>
-    -->
     
 </body>
 </html>

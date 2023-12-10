@@ -5,7 +5,7 @@ if(isset($_POST["add_task"])){
 
     // get data
     $userID = $_SESSION["userID"];
-    $taskName = $_POST["taskName"];
+    $taskName = $_POST["create_taskName"];
 
     // instantiate SignupContr class
     include "../classes/dbConnection-classes.php";
