@@ -1,0 +1,168 @@
+body {
+    background-image: url(/src/pics/blue-landscape.jpg);
+    background-attachment: fixed;
+    background-size: 150% 135%;
+    background-repeat: no-repeat;
+
+    font-family: Poppins;
+    
+    overflow: hidden;
+}
+
+
+.navbar-custom {
+    background-color: rgb(28, 10, 100);
+}
+
+.scrollable{
+    overflow-y: scroll;
+}
+
+#logout-btn {
+    color: white;
+}
+
+.today-btn {
+    position: relative;
+    right: 17rem;
+}
+
+.today-btn .btn {
+    background-color: rgb(51, 0, 255);
+}
+
+.user_place {
+    color: white;
+
+    position: relative;
+    left: 16.2rem;
+    top: 0.05rem;
+}
+
+.left-card {
+    height: 80vh;
+    background: rgba(0, 0, 0, 0.39);
+}
+
+.right-card {
+    height: 80vh;
+    background: rgba(0, 0, 0, 0.39);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.left-card .modal-container {
+    display: flex;
+    justify-content: flex-end;
+
+    position: absolute;
+    bottom: 31.3rem;
+}
+
+.left-card .modal-container .button-custom button{
+    background-color: transparent;
+    border: 0rem;
+}
+
+
+.left-card .modal-container .button-custom button:hover{
+    color: rgb(174, 174, 174);
+    background-color: transparent;
+    border: 0rem;
+}
+
+
+.left-content {
+    text-align: left;
+    color: white;
+}
+
+.task-list .card{
+    margin-bottom: 0.5rem;
+}
+
+.task-things {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.taskcard-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.center-card {
+    height: 80vh;
+    background: rgba(0, 0, 0, 0.39);
+}
+
+.center-header {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.center-header #dateToday {
+    position: relative;
+}
+
+
+.date-pick .current_date {
+    font-size: 10px;
+
+    position: relative;
+    left: 1rem;
+}
+
+.center-content {
+    text-align: left;
+    color: white;
+}
+
+.event-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.event-name {
+    font-size: 1.5rem;
+}
+
+.events .card{
+    margin-bottom: 1rem;
+}
+
+.event-time {
+    color: rgba(0, 0, 0, 0.654);
+    /*
+    position: relative;
+    top: 0.75rem;
+    left: 15rem;
+    */
+}
+
+.desc-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-container .btn-primary {
+    background-color: rgb(28, 10, 100);
+}
+
+
+

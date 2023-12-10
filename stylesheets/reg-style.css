@@ -1,0 +1,96 @@
+body {
+    background-image: url(../pics/blue-landscape.jpg);
+    background-attachment: fixed;
+    background-size: 150% 135%;
+    background-repeat: no-repeat;
+
+    font-family: Poppins;
+
+    overflow: hidden;
+}
+
+#pic {
+    position: relative;
+    left: 30rem;
+    bottom: 30rem;
+
+}
+
+#registration-text {
+    color: rgb(28, 10, 100);
+    font-size: 5rem;
+    position: relative;
+    top: 25px;
+}
+
+.form-control {
+    margin: auto;
+}
+
+.left-side {
+    position: relative;
+    top: 6rem;
+}
+.sign-up-forms .form-floating input {
+    border-color: rgb(64, 49, 162);
+    border-width: 3px;
+}
+
+.sign-up-button button {
+    border-color:rgb(72, 72, 236);
+    border-width: 3px;
+
+    background-color: rgb(39, 52, 137);
+
+    margin: auto;
+    width: 400px;    
+}
+
+.sign-up-button button:hover {
+    background-color: rgb(47, 22, 150);
+    
+}
+
+#sign-in-link a{
+    color: rgb(28, 10, 100);
+
+}
+
+#sign-in-link a:hover {
+    color: rgb(47, 22, 150);
+}
+
+.right-side{
+    /*background-image: url(/login-page/pics/pattern-bg.png);*/
+    background-color: rgb(48, 22, 150);
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1;
+
+    height: 100vh;
+}
+
+.right-text {
+    
+    position: relative;
+    top: 14rem;
+    left: 2rem;
+    text-align: left;
+    z-index: 10;
+
+    color: white;
+    font-size: 48px;
+    font-weight: 400;
+
+    text-shadow: 2px 2px 2px black;
+}
+
+#logo-right {
+    position: absolute;
+    z-index: 0;
+}
+
+#eventSync {
+    font-weight: 700;
+    font-size: 90px;
+}

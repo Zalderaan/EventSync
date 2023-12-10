@@ -1,0 +1,104 @@
+body {
+    background-image: url(/src/pics/blue-landscape.jpg);
+    background-attachment: fixed;
+    background-size: 150% 135%;
+    background-repeat: no-repeat;
+
+    font-family: Poppins;
+
+    overflow: hidden;
+}
+.navbar-custom {
+    background-color:rgb(28, 10, 100);
+}
+
+#brand {
+
+    font-size: 1.5rem;
+    color: rgb(28, 10, 100);
+
+    position: relative;
+    top: 3rem;
+}
+
+.container-login-page {
+    position: relative;
+    top: 3rem;
+}
+
+#login-text {
+    color: rgb(28, 10, 100);
+    font-size: 5rem;
+    position: relative;
+    top: 25px;
+}
+
+.form-control {
+    margin: auto;
+}
+
+.inputs .form-floating input{
+    border-color: rgb(64, 49, 162);
+    border-width: 3px;
+}
+
+
+.checkbox {
+    position: relative;
+    bottom: 3.75rem;
+    right: 8.5rem;
+
+    font-size: 0.8rem;
+    color: rgb(28, 10, 100);
+}
+
+.forgot-pass a{
+    font-size: 0.8rem;
+    color: rgb(82, 82, 211);
+
+    position: relative;
+    bottom: 2.5rem;
+    left: 8.5rem;
+
+    z-index: 1;
+
+}
+
+.forgot-pass a:hover{
+    font-size: 0.8rem;
+    color: rgb(28, 10, 100);
+
+}
+
+.login-button{
+    position: relative;
+    top: 5rem;    
+}
+
+.login-button button {
+    border-color:rgb(72, 72, 236);
+    border-width: 3px;
+    
+    width:400px;
+    margin: auto;
+
+
+    background-color: rgb(39, 52, 137);
+    
+}
+
+.login-button button:hover {
+    background-color: rgb(28, 10, 100);
+    
+}
+
+.create-acc-button a {
+    font-size: 0.95rem;
+    color: rgb(82, 82, 211);
+    position: relative;
+    top: 0.3rem;
+}
+
+.create-acc-button a:hover {
+    color: rgb(28, 10, 100);
+}
