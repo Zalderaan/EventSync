@@ -36,7 +36,8 @@ if(isset($_SESSION["userID"])) {
             echo '  <div class="card-body">';
             echo '     <div class="card-title">';
             echo '       <div class="container event-container">';
-            echo '         <span title="'. $event["event_name"] . '" style=" max-width:250px; overflow:hidden;text-overflow: ellipsis; white-space:nowrap;"><input type="checkbox"><b class="event-name"> ' . $event["event_name"] . '</b></span>';
+            echo '         <span title="'. $event["event_name"] . '" style=" max-width:250px; overflow:hidden;text-overflow: ellipsis; white-space:nowrap;"><b class="event-name"> ' . $event["event_name"] . '</b></span>';
+            echo '         Event ID: ' . $event["eventID"];
             echo '       </div>';
             echo '     </div>';
             echo '';         

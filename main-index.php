@@ -1,6 +1,10 @@
 <?php
   // start session
   session_start();
+  // Check if delete_indexID is set in the query parameters
+  if (isset($_GET['delete_indexID'])) {
+    $delete_indexID = $_GET['delete_indexID'];
+  }
 
   // include db class here
   /* 
@@ -30,8 +34,7 @@
 
     <!-- Other stylesheets -->
     <link rel="stylesheet" href="stylesheets/main-style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 
     <!-- Include jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -100,21 +103,29 @@
 
                     <form action="backend/includes/taskAdd-inc.php" method="post">
                       <div class="create-event modal-body">
-                          <div class="row justify-content-center">
-                            <div class="col-12">
-                              <label for="create_taskName">Task Name</label>
-                              <input type="text" class="form-control" id="create_taskName" name="create_taskName"><br>
-                            </div>
+                        <div class="row justify-content-center">
+                          <div class="col-12">
+                            <label for="create_taskName">Task Name</label>
+                            <input type="text" class="form-control" id="create_taskName" name="create_taskName"><br>
                           </div>
                         </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="submit" id="add_task" name="add_task" class="btn btn-primary">Add Task</button>
-                        </div>                    
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="add_task" name="add_task" class="btn btn-primary">Add Task</button>
+                      </div>                    
                     </form>
     
                   </div>
                 </div>
+              </div>
+
+              <!-- editTask trigger button -->
+              <div class="button-custom">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editTask">
+                  <i class="material-icons" style="font-size: 22px;">edit</i>
+                </button>
               </div>
 
               <!-- editTask Modal -->
@@ -126,12 +137,16 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
-                    <form action="" method="post">
+                    <form action="backend/includes/taskEdit-inc.php" method="post">
                       <div class="create-event modal-body">
                         <div class="row justify-content-center">
                           <div class="col-12">
+
+                            <label for="inputEdit_taskID">Task ID</label>
+                            <input type="number" class="form-control" id="inputEdit_taskID" name="inputEdit_taskID" min="1" required><br>
+
                             <label for="edit_taskName">Task Name</label>
-                            <input type="text" class="form-control" id="edit_taskName" name="edit_taskName"><br>
+                            <input type="text" class="form-control" id="edit_taskName" name="edit_taskName" value="" required><br>
                           </div>
                         </div>
                       </div>
@@ -144,25 +159,39 @@
                   </div>
                 </div>
               </div>
-              
+
+              <!-- deleteTask trigger button -->
+              <div class="button-custom">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteTask">
+                  <i class="material-icons" style="font-size: 22px;">delete</i>
+                </button>
+              </div>
+
               <!-- deleteTask Modal -->
               <div class="modal fade" id="deleteTask" tabindex="-1" aria-labelledby="deleteTaskLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="deleteTaskLabel">Delete tasks?</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      ...dasdasdasd
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-danger">Delete Tasks</button>
-                    </div>
+                    <form action="backend/includes/taskDelete-inc.php" method="post">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="deleteTaskLabel">Delete task?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+
+                      <div class="modal-body">
+                        <label for="inputDel_taskID">Task ID</label>
+                        <input type="number" class="form-control" id="inputDel_taskID" name="inputDel_taskID" required>
+                      </div>
+
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" id="delete_task" name="delete_task" class="btn btn-danger">Delete Tasks</button>
+                      </div>
+                    </form>
+
                   </div>
                 </div>
-              </div>              
+              </div>
+                            
             </div>
           </div>
         </div>
@@ -177,6 +206,9 @@
                   <p style="font-size: 18px; position: relative; top: 1rem;" >
                     <?php 
                       
+                      // set time zone default to you
+                      date_default_timezone_set('Asia/Manila');
+
                       // Set a default value or handle the absence of a selected date
                       if (!isset($_POST["selected_date"])) {
                         // Set a default value, such as the current date
@@ -221,50 +253,24 @@
         <div class="col-3">
           <div class="right-card card">
             <div class="card-body">
-                  
-              <form id = "dateForm" action="main-index.php" method="post">
-                <div class="row">
-                  <div class="col-12 justify-content">
-                    <input type="date" id="selected_date" name="selected_date" onchange="submitForm()">
+              <div class="dateform-div" style="flex: display; justify-content-center">
+                <form id = "dateForm" action="main-index.php" method="post">
+                  <div class="row">
+                    <div class="col-12 justify-content">
+                      <input type="date" id="selected_date" name="selected_date" onchange="submitForm()">
+                    </div>
                   </div>
-                </div>
-              </form>
+                </form>
 
-
-              <script>
-                function submitForm() {
-                    // Trigger the form submission when the date input changes
-                    document.getElementById('dateForm').submit();
-                }
-              </script>
-              
-              <!--
-              <script>
-                // Function to submit the form
-                function submitForm() {
-                  document.getElementById('dateForm').submit();
-                }
-
-                // Automatically set the date and submit the form on page load
-                window.onload = function() {
-                  // Set the current date
-                  var currentDate = new Date().toISOString().split('T')[0];
-
-                  // Check if the date input value is already set to today
-                  if (document.getElementById('selected_date').value !== currentDate) {
-                    document.getElementById('selected_date').value = currentDate;
-
-                    // Check if this is a form resubmission on the initial load
-                    var formResubmitted = document.getElementById('formResubmitted').value;
-
-                    // If it's not a resubmission, submit the form automatically
-                    if (formResubmitted !== 'true') {
-                      submitForm();
-                    }
+                <!-- script for changing date after changing date picker value-->      
+                <script>
+                  function submitForm() {
+                      // Trigger the form submission when the date input changes
+                      document.getElementById('dateForm').submit();
                   }
-                };
-              </script>
-              -->
+                </script>
+              </div>
+
 
               <div class="container btn-container">  
 
@@ -327,63 +333,74 @@
                 <div class="modal fade" id="editEventModal" tabindex="-1" aria-labelledby="editEventLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="editEventLabel">Edit Event</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
 
-                      <div class="create-event modal-body">
-                        <div class="row justify-content-center">
-                          <div class="col-12">
-                            <form action="">
+                      <form action="backend/includes/eventEdit-inc.php" method="post">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="editEventLabel">Edit Event</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="create-event modal-body">
+                          <div class="row justify-content-center">
+                            <div class="col-12">
+                              
+                              <label for="input_eventID">Event ID</label>
+                              <input type="number" class="form-control" id="input_eventID" name="input_eventID"><br>
+
                               <label for="eventName">Event Name</label>
-                              <input type="text" class="form-control" id="eventName" name="eventName"><br>
+                              <input type="text" class="form-control" id="edit_eventName" name="edit_eventName"><br>
                                   
                               <label for="eventDesc">Event Description</label>
-                              <textarea id="eventDesc" class="form-control" name="eventDesc"></textarea><br>
+                              <textarea id="eventDesc" class="form-control" id="edit_eventDesc" name="edit_eventDesc"></textarea><br>
 
                               <label for="date">Date</label>
-                              <input type="date" class="form-control" id="date" name="date"><br>
-        
+                              <input type="date" class="form-control" id="edit_eventDate" name="edit_eventDate"><br>
+          
                               <label for="timeStart">Start Time</label>
-                              <input type="time" class="form-control" id="timeStart" name="timeStart"><br>
-        
+                              <input type="time" class="form-control" id="edit_eventTimeStart" name="edit_eventTimeStart"><br>
+          
                               <label for="timeStop">Stop Time</label>
-                              <input type="time" class="form-control" id="timeStop" name="timeStop">
-                            </form>
-      
+                              <input type="time" class="form-control" id="edit_eventTimeStop" name="edit_eventTimeStop">
+
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                      </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary" id="edit_event" name="edit_event">Save changes</button>
+                        </div>
+                      </form>
+
                     </div>
                   </div>
                 </div>              
 
                 <!-- delete trigger modal -->
                 <button type="button" class="btn btn-primary my-1" data-bs-toggle="modal" data-bs-target="#deleteEventModal">
-                  Delete Event/s
+                  Delete Event
                 </button>
 
                 <!-- delete form moodal -->
                 <div class="modal fade" id="deleteEventModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete the ff events?</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        ...
-                      </div>
-                      <div class="modal-footer">
-                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go back</button>
-                         <button type="submit" class="btn btn-danger">Delete events</button>
-                       </div>
+
+                      <form action="backend/includes/eventDelete-inc.php" method="post">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete the ff events?</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <label for="inputDel_eventID">Event ID</label>
+                          <input type="number" class="form-control" id="inputDel_eventID" name="inputDel_eventID">;
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go back</button>
+                          <button type="submit" class="btn btn-danger" id="delete_event" name="delete_event">Delete events</button>
+                        </div>
+                      </form>
+
                     </div>
                   </div>
                  </div>
@@ -394,6 +411,49 @@
         </div>
       </div>  
     </div>
+    
+    <!--
+
+    <script>
+      // Add a click event listener to each delete button
+      var deleteButtons = document.querySelectorAll('.button-custom button[data-bs-target="#deleteTask"]');
+      deleteButtons.forEach(function(button, index) {
+          button.addEventListener('click', function() {
+              // Traverse the DOM to find the index of the parent list item
+              var listItem = button.closest('li');
+              var index = Array.prototype.indexOf.call(listItem.parentNode.children, listItem);
+
+              // Use AJAX to send the index to your deletion logic file
+              $.ajax({
+                url: 'backend/includes/taskDelete-inc.php',
+                type: 'POST',
+                data: { index: delete_indexID },
+                dataType: 'json', // Specify that the expected response is JSON
+                success: function(response) {
+                    // Handle the response from the server
+                    if (response.success) {
+                        // Successful deletion
+                        console.log(response.message);
+                        // Optionally, you can perform additional actions here
+                    } else {
+                        // Error during deletion
+                        console.error(response.message);
+                        // Optionally, you can display an error message to the user
+                    }
+                },
+                error: function(error) {
+                    // Handle AJAX errors
+                    console.error(error);
+                }
+
+              // Display the index (you can replace this with your desired logic)
+              alert('Index of clicked list item: ' + delete_indexID);
+              });
+          });
+      });
+    </script>
+
+    -->
     
 </body>
 </html>
