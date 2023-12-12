@@ -393,7 +393,7 @@
                         </div>
                         <div class="modal-body">
                           <label for="inputDel_eventID">Event ID</label>
-                          <input type="number" class="form-control" id="inputDel_eventID" name="inputDel_eventID">;
+                          <input type="number" class="form-control" id="inputDel_eventID" name="inputDel_eventID">
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go back</button>
