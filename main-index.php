@@ -205,20 +205,27 @@
                   <b style="position: relative; top: 0.4rem;">Your Schedule</b>
                   <p style="font-size: 18px; position: relative; top: 1rem;" >
                     <?php 
-                      
-                      // set time zone default to you
+
+                      // Set the default time zone
                       date_default_timezone_set('Asia/Manila');
 
                       // Set a default value or handle the absence of a selected date
                       if (!isset($_POST["selected_date"])) {
-                        // Set a default value, such as the current date
-                        $_POST["selected_date"] = date('Y-m-d');
-                        echo $_POST["selected_date"];
-
+                          // If the selected date is not set in the POST data, check the session
+                          if (isset($_SESSION["selected_date"])) {
+                              // Retrieve the selected date from the session
+                              $_POST["selected_date"] = $_SESSION["selected_date"];
+                          } else {
+                              // Set a default value, such as the current date
+                              $_POST["selected_date"] = date('Y-m-d');
+                          }
                       } else {
-                        echo $_POST["selected_date"];
-
+                          // Save the selected date to the session
+                          $_SESSION["selected_date"] = $_POST["selected_date"];
                       }
+
+                      // Output the selected date
+                      echo 'SET DATE: ' . $_POST["selected_date"];
                     ?>
                   </p>
                 </div>
@@ -231,6 +238,7 @@
               <div>
                 <ul class="events" id="events-container" style="list-style-type: none;">
                   <?php
+                    /*
                     $selectedDate = isset($_POST['selected_date']) ? $_POST['selected_date'] : date('Y-m-d');
 
                     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['selected_date'])) {
@@ -240,6 +248,7 @@
                       // Set a default value or handle the absence of a selected date
                       $selectedDate = date('Y-m-d');
                     }
+                    */
 
                     // include file with listing logic
                     include "backend/includes/eventDisplay-inc.php";                
@@ -256,8 +265,13 @@
               <div class="dateform-div" style="flex: display; justify-content-center">
                 <form id = "dateForm" action="main-index.php" method="post">
                   <div class="row">
-                    <div class="col-12 justify-content">
-                      <input type="date" id="selected_date" name="selected_date" onchange="submitForm()">
+                    <div class="col-12 text-center my-1" style="color: white">
+                      <?php 
+                        $dateToday = date('Y-m-d');
+                        echo 'Date today: ' . $dateToday;
+                      ?>
+                      <label for="selected_date" style="color: white">Pick a date: </label>
+                      <input type="date" id="selected_date" name="selected_date" onchange="submitForm()"> <br>
                     </div>
                   </div>
                 </form>
@@ -411,49 +425,6 @@
         </div>
       </div>  
     </div>
-    
-    <!--
-
-    <script>
-      // Add a click event listener to each delete button
-      var deleteButtons = document.querySelectorAll('.button-custom button[data-bs-target="#deleteTask"]');
-      deleteButtons.forEach(function(button, index) {
-          button.addEventListener('click', function() {
-              // Traverse the DOM to find the index of the parent list item
-              var listItem = button.closest('li');
-              var index = Array.prototype.indexOf.call(listItem.parentNode.children, listItem);
-
-              // Use AJAX to send the index to your deletion logic file
-              $.ajax({
-                url: 'backend/includes/taskDelete-inc.php',
-                type: 'POST',
-                data: { index: delete_indexID },
-                dataType: 'json', // Specify that the expected response is JSON
-                success: function(response) {
-                    // Handle the response from the server
-                    if (response.success) {
-                        // Successful deletion
-                        console.log(response.message);
-                        // Optionally, you can perform additional actions here
-                    } else {
-                        // Error during deletion
-                        console.error(response.message);
-                        // Optionally, you can display an error message to the user
-                    }
-                },
-                error: function(error) {
-                    // Handle AJAX errors
-                    console.error(error);
-                }
-
-              // Display the index (you can replace this with your desired logic)
-              alert('Index of clicked list item: ' + delete_indexID);
-              });
-          });
-      });
-    </script>
-
-    -->
     
 </body>
 </html>
